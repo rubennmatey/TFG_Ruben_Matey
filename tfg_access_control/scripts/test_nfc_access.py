@@ -7,7 +7,7 @@ sys.path.append(str(PROJECT_ROOT))
 
 from app.nfc.NFCReader import NFCReader
 from app.core.access_controller import check_access
-from tfg_access_control.app.ble.BLEServer import BLEServer
+from app.ble.BLEServer import BLEServer
 
 
 def main():
