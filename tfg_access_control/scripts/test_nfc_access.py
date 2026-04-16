@@ -7,9 +7,13 @@ sys.path.append(str(PROJECT_ROOT))
 
 from app.nfc.NFCReader import NFCReader
 from app.core.access_controller import check_access
+from tfg_access_control.app.ble.BLEServer import BLEServer
+
 
 def main():
     reader = NFCReader()
+    ble = BLEServer()
+    ble.start()
 
     while True:
         uid = reader.read_uid()
@@ -20,7 +24,11 @@ def main():
             result = check_access(uid)
             print(result)
 
+            message = f"{result['result']}:{uid}"
+            ble.update_value(message)
+
             time.sleep(2)
-   
+
+
 if __name__ == "__main__":
     main()
