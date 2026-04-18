@@ -1,6 +1,7 @@
 from pathlib import Path
 import sys
 import time
+import threading
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.append(str(PROJECT_ROOT))
@@ -13,7 +14,11 @@ from app.ble.BLEServer import BLEServer
 def main():
     reader = NFCReader()
     ble = BLEServer()
-    ble.start()
+
+    ble_thread = threading.Thread(target=ble.start, daemon=True)
+    ble_thread.start()
+
+    print("Sistema iniciado. Esperando tarjetas...")
 
     while True:
         uid = reader.read_uid()
