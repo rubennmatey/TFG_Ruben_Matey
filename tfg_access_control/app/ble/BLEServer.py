@@ -27,10 +27,10 @@ class BLEServer:
             flags = ["read", "notify"]
         )
 
-        def update_value(self, new_value: str):
-            self.value = new_value.encode("utf-8")
-            self.peripheral.update_characteristic_value(1,1, self.value)
+    def update_value(self, new_value: str):
+        self.value = new_value.encode("utf-8")
+        self.peripheral.update_characteristic_value(1,1, self.value)
 
-        def start(self):
-            print("BLE iniciado")
+    def start(self):
+        print("BLE iniciado")
         self.peripheral.publish()
