@@ -8,7 +8,7 @@ class BLEServer:
         self.value = b"INIT"
 
         self.peripheral = peripheral.Peripheral(
-            adapter_addr = None,
+            adapter_address = None,
             local_name = "TFG_ACCESS"
         )
 
