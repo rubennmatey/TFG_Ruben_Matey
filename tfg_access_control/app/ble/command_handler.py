@@ -4,7 +4,7 @@ from app.db.credentials_actions import (
     get_credential_summary,
     update_credential_status
 )
-
+from app.db.admin_actions import create_admin_action
 
 def handle_command(command: str) -> str:
     command = command.strip()
@@ -45,6 +45,8 @@ def handle_command(command: str) -> str:
         if updated == 0:
             return "CREDENTIAL_NOT_FOUND"
 
+        create_admin_action("DISABLE_UID", uid)
+
         return f"UID_DISABLED:{uid}"
 
     if command.startswith("ENABLE_UID:"):
@@ -53,6 +55,8 @@ def handle_command(command: str) -> str:
 
         if updated == 0:
             return "CREDENTIAL_NOT_FOUND"
+
+        create_admin_action("ENABLE_UID", uid)
 
         return f"UID_ENABLED:{uid}"
 

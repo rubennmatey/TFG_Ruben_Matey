@@ -15,3 +15,10 @@ CREATE TABLE IF NOT EXISTS access_logs (
     reason TEXT NOT NULL,
     timestamp TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS admin_actions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    action_type TEXT NOT NULL,
+    target_uid TEXT,
+    timestamp TEXT NOT NULL
+);

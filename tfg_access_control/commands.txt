@@ -1,0 +1,87 @@
+# COMANDOS BLE - TFG ACCESS CONTROL
+
+# ========================
+
+# COMANDOS GENERALES
+
+# ========================
+
+PING
+→ Comprueba conexión BLE
+→ Respuesta: PONG
+
+# ========================
+
+# LOGS DE ACCESO
+
+# ========================
+
+GET_LAST_LOG
+→ Devuelve el último acceso registrado
+→ Respuesta:
+UID:RESULT:REASON:TIMESTAMP
+Ejemplo:
+49724e06:GRANTED:Credential authorized:2026-04-20T18:30:00
+
+# ========================
+
+# CREDENCIALES
+
+# ========================
+
+LIST_CREDENTIALS
+→ Lista todas las credenciales
+→ Respuesta:
+UID:ALIAS:ACTIVE | UID:ALIAS:ACTIVE ...
+Ejemplo:
+49724e06:Tarjeta Ruben:1|a31d1656:Tarjeta Invitado:0
+
+GET_CREDENTIAL:<UID>
+→ Devuelve información de una credencial concreta
+→ Ejemplo:
+GET_CREDENTIAL:49724e06
+
+→ Respuesta:
+UID:ALIAS:ROLE:ACTIVE
+Ejemplo:
+49724e06:Tarjeta Ruben:admin:1
+
+# ========================
+
+# ACTIVAR / DESACTIVAR
+
+# ========================
+
+DISABLE_UID:<UID>
+→ Desactiva una credencial (revocación)
+→ Ejemplo:
+DISABLE_UID:49724e06
+
+→ Respuesta:
+UID_DISABLED:49724e06
+
+ENABLE_UID:<UID>
+→ Activa una credencial
+→ Ejemplo:
+ENABLE_UID:49724e06
+
+→ Respuesta:
+UID_ENABLED:49724e06
+
+# ========================
+
+# RESPUESTAS GENERALES
+
+# ========================
+
+UNKNOWN_COMMAND
+→ Comando no reconocido
+
+CREDENTIAL_NOT_FOUND
+→ UID no existe en la base de datos
+
+NO_CREDENTIALS
+→ No hay credenciales registradas
+
+NO_LOGS
+→ No hay logs disponibles
