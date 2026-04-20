@@ -1,5 +1,9 @@
 from app.db.access_logs_actions import get_last_access_log
-from app.db.credentials_actions import list_credentials_as_rows
+from app.db.credentials_actions import (
+    list_credentials_as_rows,
+    get_credential_summary,
+    update_credential_status
+)
 
 
 def handle_command(command: str) -> str:
@@ -24,5 +28,32 @@ def handle_command(command: str) -> str:
         for row in rows:
             parts.append(f"{row['uid']}:{row['alias']}:{row['active']}")
         return "|".join(parts)
+
+    if command.startswith("GET_CREDENTIAL:"):
+        uid = command.split(":", 1)[1].strip()
+        row = get_credential_summary(uid)
+
+        if row is None:
+            return "CREDENTIAL_NOT_FOUND"
+
+        return f"{row['uid']}:{row['alias']}:{row['role']}:{row['active']}"
+
+    if command.startswith("DISABLE_UID:"):
+        uid = command.split(":", 1)[1].strip()
+        updated = update_credential_status(uid, 0)
+
+        if updated == 0:
+            return "CREDENTIAL_NOT_FOUND"
+
+        return f"UID_DISABLED:{uid}"
+
+    if command.startswith("ENABLE_UID:"):
+        uid = command.split(":", 1)[1].strip()
+        updated = update_credential_status(uid, 1)
+
+        if updated == 0:
+            return "CREDENTIAL_NOT_FOUND"
+
+        return f"UID_ENABLED:{uid}"
 
     return "UNKNOWN_COMMAND"
