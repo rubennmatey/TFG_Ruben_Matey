@@ -32,4 +32,14 @@ def list_credentials():
     finally:
         conn.close()
 
+def list_credentials_as_rows():
+    conn = get_connection()
+    try:
+        rows = conn.execute(
+            "SELECT uid, alias, active FROM credentials ORDER BY id"
+        ).fetchall()
+        return rows
+    finally:
+        conn.close()
+
 

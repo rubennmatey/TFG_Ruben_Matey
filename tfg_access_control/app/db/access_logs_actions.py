@@ -21,3 +21,14 @@ def list_access_logs():
         return rows
     finally:
         conn.close()
+
+# Returns the last access log
+def get_last_access_log():
+    conn = get_connection()
+    try:
+        row = conn.execute(
+            "SELECT * FROM access_logs ORDER BY id DESC LIMIT 1"
+        ).fetchone()
+        return row
+    finally:
+        conn.close()
