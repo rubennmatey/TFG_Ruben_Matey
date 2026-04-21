@@ -2,7 +2,7 @@ from pathlib import Path
 import sys
 
 # Añade la raiz del proyecto al path
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(PROJECT_ROOT))
 
 from app.config import DATA_DIR, DB_PATH, SCHEMA_PATH
