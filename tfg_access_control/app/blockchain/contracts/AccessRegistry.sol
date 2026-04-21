@@ -9,12 +9,25 @@ contract AccessRegistry {
         string timestamp;
     }
 
+    struct LogBatch {
+        uint256 id;
+        string batchHash;
+        string timestamp;
+    }
+
     AdminAction[] private adminActions;
+    LogBatch[] private logBatches;
 
     event AdminActionRegistered(
         uint256 indexed id,
         string actionType,
         string targetUid,
+        string timestamp
+    );
+
+    event LogBatchRegistered(
+        uint256 indexed id,
+        string batchHash,
         string timestamp
     );
 
@@ -60,5 +73,45 @@ contract AccessRegistry {
 
     function getAdminActionsCount() public view returns (uint256) {
         return adminActions.length;
+    }
+
+    function registerLogBatch(
+        string memory batchHash,
+        string memory timestamp
+    ) public {
+        uint256 batchId = logBatches.length;
+
+        logBatches.push(
+            LogBatch({
+                id: batchId,
+                batchHash: batchHash,
+                timestamp: timestamp
+            })
+        );
+
+        emit LogBatchRegistered(batchId, batchHash, timestamp);
+    }
+
+    function getLogBatch(uint256 index)
+        public
+        view
+        returns (
+            uint256 id,
+            string memory batchHash,
+            string memory timestamp
+        )
+    {
+        require(index < logBatches.length, "Invalid index");
+
+        LogBatch memory batch = logBatches[index];
+        return (
+            batch.id,
+            batch.batchHash,
+            batch.timestamp
+        );
+    }
+
+    function getLogBatchesCount() public view returns (uint256) {
+        return logBatches.length;
     }
 }

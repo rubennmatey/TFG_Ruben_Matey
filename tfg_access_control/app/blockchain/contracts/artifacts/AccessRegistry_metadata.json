@@ -37,6 +37,31 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "batchHash",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "timestamp",
+						"type": "string"
+					}
+				],
+				"name": "LogBatchRegistered",
+				"type": "event"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -86,6 +111,48 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getLogBatch",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "batchHash",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "timestamp",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getLogBatchesCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "string",
 						"name": "actionType",
 						"type": "string"
@@ -102,6 +169,24 @@
 					}
 				],
 				"name": "registerAdminAction",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "batchHash",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "timestamp",
+						"type": "string"
+					}
+				],
+				"name": "registerLogBatch",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -135,11 +220,11 @@
 	},
 	"sources": {
 		"AccessRegistry.sol": {
-			"keccak256": "0x1f04c156699a4b3c24f7a849ba49d4601460ed6edef6c806fecf334016758741",
+			"keccak256": "0x5a07901485ede91a1034cccf5f87210349a2c7e7e1bf0d70e0d78bc442efb6d2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6da477bcb5852920c174654e77a51661d0e7329913a07109744cd14edfe919fd",
-				"dweb:/ipfs/QmRyEJnDqDjoaTZ34MuLwmupDwhb2BebgyBSZYjYNP9Wn6"
+				"bzz-raw://0b5853bc5ebe812323b0e445a169b50810e726c0064f3b9a4157089f04145750",
+				"dweb:/ipfs/QmWheq34ATh3azKH7cWHQvca39ZnrHBgb7R6FRe7bD64Dr"
 			]
 		}
 	},
