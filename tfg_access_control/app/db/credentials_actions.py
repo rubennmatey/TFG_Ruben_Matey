@@ -75,4 +75,15 @@ def get_credential_summary(uid):
     finally:
         conn.close()
 
+# Checks that a credential exists
+def credential_exists(uid):
+    conn = get_connection()
+    try:
+        row = conn.execute(
+            "SELECT 1 FROM credentials WHERE uid = ?",
+            (uid,)
+        ).fetchone()
+        return row is not None
+    finally:
+        conn.close()
 

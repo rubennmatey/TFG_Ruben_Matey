@@ -2,11 +2,12 @@ from app.db.access_logs_actions import get_last_access_log
 from app.db.credentials_actions import (
     list_credentials_as_rows,
     get_credential_summary,
-    update_credential_status
+    update_credential_status,
 )
 from app.db.admin_actions import create_admin_action
 
-def handle_command(command: str) -> str:
+
+def handle_command(command: str, enrollment_service=None) -> str:
     command = command.strip()
 
     if command == "PING":
@@ -46,7 +47,6 @@ def handle_command(command: str) -> str:
             return "CREDENTIAL_NOT_FOUND"
 
         create_admin_action("DISABLE_UID", uid)
-
         return f"UID_DISABLED:{uid}"
 
     if command.startswith("ENABLE_UID:"):
@@ -57,7 +57,21 @@ def handle_command(command: str) -> str:
             return "CREDENTIAL_NOT_FOUND"
 
         create_admin_action("ENABLE_UID", uid)
-
         return f"UID_ENABLED:{uid}"
+
+    if command == "START_ENROLL":
+        if enrollment_service is None:
+            return "ENROLL_SERVICE_NOT_AVAILABLE"
+        return enrollment_service.start_enroll()
+
+    if command == "STOP_ENROLL":
+        if enrollment_service is None:
+            return "ENROLL_SERVICE_NOT_AVAILABLE"
+        return enrollment_service.stop_enroll()
+
+    if command == "GET_LAST_ENROLL":
+        if enrollment_service is None:
+            return "ENROLL_SERVICE_NOT_AVAILABLE"
+        return enrollment_service.get_last_enroll()
 
     return "UNKNOWN_COMMAND"

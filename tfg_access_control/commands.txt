@@ -46,6 +46,21 @@ UID:ALIAS:ROLE:ACTIVE
 Ejemplo:
 49724e06:Tarjeta Ruben:admin:1
 
+START_ENROLL
+→ Activa el modo alta de nueva credencial
+→ Respuesta: ENROLL_MODE_ON
+
+STOP_ENROLL
+→ Desactiva el modo alta
+→ Respuesta: ENROLL_MODE_OFF
+
+GET_LAST_ENROLL
+→ Devuelve el último resultado de alta
+→ Respuesta:
+  ENROLLED:<UID>
+  o ALREADY_EXISTS:<UID>
+  o NONE
+
 # ========================
 
 # ACTIVAR / DESACTIVAR

@@ -10,9 +10,10 @@ RESPONSE_UUID = "12345678-1234-5678-1234-56789abcdef3"
 
 
 class BLEServer:
-    def __init__(self):
+    def __init__(self, enrollment_service=None):
         self.current_event = "INIT"
         self.current_response = "NO_RESPONSE"
+        self.enrollment_service = enrollment_service
 
         self.peripheral = peripheral.Peripheral(
             adapter_address=ADAPTER_ADDRESS,
@@ -25,7 +26,6 @@ class BLEServer:
             primary=True
         )
 
-        # Característica 1: último evento NFC
         self.peripheral.add_characteristic(
             srv_id=1,
             chr_id=1,
@@ -36,7 +36,6 @@ class BLEServer:
             read_callback=self.read_last_event
         )
 
-        # Característica 2: comando recibido desde el móvil
         self.peripheral.add_characteristic(
             srv_id=1,
             chr_id=2,
@@ -47,7 +46,6 @@ class BLEServer:
             write_callback=self.write_command
         )
 
-        # Característica 3: respuesta al comando
         self.peripheral.add_characteristic(
             srv_id=1,
             chr_id=3,
@@ -59,7 +57,6 @@ class BLEServer:
         )
 
     def read_last_event(self):
-        print(f"[BLE] Read LAST_EVENT -> {self.current_event}")
         return list(self.current_event.encode("utf-8"))
 
     def update_value(self, new_value: str):
@@ -73,11 +70,10 @@ class BLEServer:
             command = ""
 
         print(f"[BLE] Comando recibido: {command}")
-        self.current_response = handle_command(command)
+        self.current_response = handle_command(command, self.enrollment_service)
         print(f"[BLE] Respuesta generada: {self.current_response}")
 
     def read_response(self):
-        print(f"[BLE] Read RESPONSE -> {self.current_response}")
         return list(self.current_response.encode("utf-8"))
 
     def start(self):
