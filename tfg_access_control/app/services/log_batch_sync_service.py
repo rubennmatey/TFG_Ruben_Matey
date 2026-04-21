@@ -4,12 +4,12 @@ from app.db.log_batches import (
 )
 from app.blockchain.log_batch_chain import send_log_batch_to_blockchain
 
-
+# Sync 1 batch with blockchain
 def sync_one_log_batch():
     pending = list_pending_log_batches()
 
     if not pending:
-        return {"message": "No hay lotes pendientes"}
+        return {"synced": 0, "message": "No hay lotes pendientes"}
 
     batch = pending[0]
 
@@ -21,12 +21,13 @@ def sync_one_log_batch():
     mark_log_batch_as_synced(batch["id"], tx_hash)
 
     return {
+        "synced": 1,
         "batch_id": batch["id"],
         "tx_hash": tx_hash,
         "block": receipt.blockNumber
     }
 
-
+# Sync all batches with blockchain
 def sync_all_log_batches():
     pending_batches = list_pending_log_batches()
 
@@ -48,11 +49,10 @@ def sync_all_log_batches():
             )
 
             mark_log_batch_as_synced(batch["id"], tx_hash)
-
             synced_count += 1
 
         except Exception as e:
-            print(f"Error batch {batch['id']}: {e}")
+            print(f"[SYNC_BATCH] Error sincronizando lote {batch['id']}: {e}")
             failed_count += 1
 
     return {
