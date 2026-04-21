@@ -1,5 +1,5 @@
-from app.db.log_batches_repository import get_log_batch_by_id
-from app.db.access_logs_repository import list_logs_by_batch_id
+from app.db.log_batches import get_log_batch_by_id
+from app.db.access_logs_actions import list_logs_by_batch_id
 from app.blockchain.hashing import build_logs_batch_hash
 from app.blockchain.log_batch_query_service import get_log_batch_from_blockchain
 
