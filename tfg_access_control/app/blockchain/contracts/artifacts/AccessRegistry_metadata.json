@@ -1,0 +1,147 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "actionType",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "targetUid",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "timestamp",
+						"type": "string"
+					}
+				],
+				"name": "AdminActionRegistered",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getAdminAction",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "actionType",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "targetUid",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "timestamp",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAdminActionsCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "actionType",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "targetUid",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "timestamp",
+						"type": "string"
+					}
+				],
+				"name": "registerAdminAction",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"AccessRegistry.sol": "AccessRegistry"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"AccessRegistry.sol": {
+			"keccak256": "0x1f04c156699a4b3c24f7a849ba49d4601460ed6edef6c806fecf334016758741",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6da477bcb5852920c174654e77a51661d0e7329913a07109744cd14edfe919fd",
+				"dweb:/ipfs/QmRyEJnDqDjoaTZ34MuLwmupDwhb2BebgyBSZYjYNP9Wn6"
+			]
+		}
+	},
+	"version": 1
+}
