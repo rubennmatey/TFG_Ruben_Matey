@@ -61,3 +61,18 @@ def mark_log_batch_as_synced(batch_id, tx_hash):
         conn.commit()
     finally:
         conn.close()
+
+
+def get_log_batch_by_id(batch_id):
+    conn = get_connection()
+    try:
+        row = conn.execute(
+            """
+            SELECT * FROM log_batches
+            WHERE id = ?
+            """,
+            (batch_id,)
+        ).fetchone()
+        return row
+    finally:
+        conn.close()

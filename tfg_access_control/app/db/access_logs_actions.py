@@ -74,3 +74,19 @@ def mark_logs_as_batched(log_ids, batch_id):
         conn.commit()
     finally:
         conn.close()
+
+# Returns logs linked to a batch
+def list_logs_by_batch_id(batch_id):
+    conn = get_connection()
+    try:
+        rows = conn.execute(
+            """
+            SELECT * FROM access_logs
+            WHERE batch_id = ?
+            ORDER BY id ASC
+            """,
+            (batch_id,)
+        ).fetchall()
+        return rows
+    finally:
+        conn.close()
