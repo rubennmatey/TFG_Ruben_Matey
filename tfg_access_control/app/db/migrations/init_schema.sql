@@ -20,5 +20,7 @@ CREATE TABLE IF NOT EXISTS admin_actions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     action_type TEXT NOT NULL,
     target_uid TEXT,
-    timestamp TEXT NOT NULL
+    timestamp TEXT NOT NULL,
+    synced_to_blockchain INTEGER NOT NULL DEFAULT 0,
+    tx_hash TEXT
 );
