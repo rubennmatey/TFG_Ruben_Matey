@@ -6,9 +6,9 @@ import threading
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from app.nfc.reader import NFCReader
+from app.nfc.NFCReader import NFCReader
 from app.core.access_controller import check_access
-from app.ble.ble_server import BLEServer
+from app.ble.BLEServer import BLEServer
 from app.services.enrollment_service import EnrollmentService
 
 
