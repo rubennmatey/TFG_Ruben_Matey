@@ -1,6 +1,6 @@
 from web3 import Web3
 from app.config import BLOCKCHAIN_ACCOUNT, BLOCKCHAIN_PRIVATE_KEY, CHAIN_ID
-from app.blockchain.web3_client import get_web3, get_contract
+from app.blockchain.web3_client import get_contract
 
 
 def send_admin_action_to_blockchain(action_type, target_uid, timestamp):
