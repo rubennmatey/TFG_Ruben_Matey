@@ -1,102 +1,128 @@
 # COMANDOS BLE - TFG ACCESS CONTROL
 
 # ========================
-
 # COMANDOS GENERALES
-
 # ========================
 
 PING
 → Comprueba conexión BLE
 → Respuesta: PONG
 
+
 # ========================
-
 # LOGS DE ACCESO
-
 # ========================
 
 GET_LAST_LOG
 → Devuelve el último acceso registrado
 → Respuesta:
-UID:RESULT:REASON:TIMESTAMP
-Ejemplo:
-49724e06:GRANTED:Credential authorized:2026-04-20T18:30:00
+  UID:RESULT:REASON:TIMESTAMP
+  Ejemplo:
+  49724e06:GRANTED:Credential authorized:2026-04-20T18:30:00
+
+→ Si no hay logs:
+  NO_LOGS
+
 
 # ========================
-
 # CREDENCIALES
-
 # ========================
 
 LIST_CREDENTIALS
 → Lista todas las credenciales
 → Respuesta:
-UID:ALIAS:ACTIVE | UID:ALIAS:ACTIVE ...
-Ejemplo:
-49724e06:Tarjeta Ruben:1|a31d1656:Tarjeta Invitado:0
+  UID:ALIAS:ACTIVE|UID:ALIAS:ACTIVE|...
+  Ejemplo:
+  49724e06:Tarjeta Ruben:1|a31d1656:Tarjeta Invitado:0
+
+→ Si no hay credenciales:
+  NO_CREDENTIALS
+
 
 GET_CREDENTIAL:<UID>
 → Devuelve información de una credencial concreta
 → Ejemplo:
-GET_CREDENTIAL:49724e06
+  GET_CREDENTIAL:49724e06
 
 → Respuesta:
-UID:ALIAS:ROLE:ACTIVE
-Ejemplo:
-49724e06:Tarjeta Ruben:admin:1
+  UID:ALIAS:ROLE:ACTIVE
+  Ejemplo:
+  49724e06:Tarjeta Ruben:admin:1
+
+→ Si no existe:
+  CREDENTIAL_NOT_FOUND
+
+→ Si faltan argumentos:
+  INVALID_ARGUMENTS
+
+
+# ========================
+# ACTIVAR / DESACTIVAR
+# ========================
+
+DISABLE_UID:<UID>
+→ Desactiva una credencial
+→ Ejemplo:
+  DISABLE_UID:49724e06
+
+→ Respuesta:
+  UID_DISABLED:49724e06
+
+→ Si no existe:
+  CREDENTIAL_NOT_FOUND
+
+→ Si faltan argumentos:
+  INVALID_ARGUMENTS
+
+
+ENABLE_UID:<UID>
+→ Activa una credencial
+→ Ejemplo:
+  ENABLE_UID:49724e06
+
+→ Respuesta:
+  UID_ENABLED:49724e06
+
+→ Si no existe:
+  CREDENTIAL_NOT_FOUND
+
+→ Si faltan argumentos:
+  INVALID_ARGUMENTS
+
+
+# ========================
+# ALTA DE CREDENCIALES
+# ========================
 
 START_ENROLL
-→ Activa el modo alta de nueva credencial
-→ Respuesta: ENROLL_MODE_ON
+→ Activa el modo alta
+→ Respuesta:
+  ENROLL_MODE_ON
+
 
 STOP_ENROLL
 → Desactiva el modo alta
-→ Respuesta: ENROLL_MODE_OFF
+→ Respuesta:
+  ENROLL_MODE_OFF
+
 
 GET_LAST_ENROLL
 → Devuelve el último resultado de alta
 → Respuesta:
   ENROLLED:<UID>
-  o ALREADY_EXISTS:<UID>
-  o NONE
+  ALREADY_EXISTS:<UID>
+  NONE
+
 
 # ========================
-
-# ACTIVAR / DESACTIVAR
-
-# ========================
-
-DISABLE_UID:<UID>
-→ Desactiva una credencial (revocación)
-→ Ejemplo:
-DISABLE_UID:49724e06
-
-→ Respuesta:
-UID_DISABLED:49724e06
-
-ENABLE_UID:<UID>
-→ Activa una credencial
-→ Ejemplo:
-ENABLE_UID:49724e06
-
-→ Respuesta:
-UID_ENABLED:49724e06
-
-# ========================
-
 # RESPUESTAS GENERALES
-
 # ========================
 
 UNKNOWN_COMMAND
 → Comando no reconocido
 
-CREDENTIAL_NOT_FOUND
-→ UID no existe en la base de datos
+INVALID_ARGUMENTS
+→ El comando existe pero faltan parámetros o están vacíos
 
-NO_CREDENTIALS
-→ No hay credenciales registradas
-
-NO_LOGS
-→ No hay logs disponibles
+ENROLL_SERVICE_NOT_AVAILABLE
+→ El servicio de enroll no está disponible

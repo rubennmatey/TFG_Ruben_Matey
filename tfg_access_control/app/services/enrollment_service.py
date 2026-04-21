@@ -1,19 +1,24 @@
 from app.db.credentials_actions import create_credential, credential_exists
 from app.db.admin_actions import create_admin_action
+from app.constants import (
+    BLE_RESPONSE_ENROLL_MODE_ON,
+    BLE_RESPONSE_ENROLL_MODE_OFF,
+    BLE_RESPONSE_NONE,
+)
 
 
 class EnrollmentService:
     def __init__(self):
         self.enroll_mode = False
-        self.last_enrolled_uid = "NONE"
+        self.last_enrolled_uid = BLE_RESPONSE_NONE
 
     def start_enroll(self):
         self.enroll_mode = True
-        return "ENROLL_MODE_ON"
+        return BLE_RESPONSE_ENROLL_MODE_ON
 
     def stop_enroll(self):
         self.enroll_mode = False
-        return "ENROLL_MODE_OFF"
+        return BLE_RESPONSE_ENROLL_MODE_OFF
 
     def get_last_enroll(self):
         return self.last_enrolled_uid
