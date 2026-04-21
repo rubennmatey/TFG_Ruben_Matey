@@ -1,9 +1,9 @@
 import time
 import threading
 
-from app.nfc.reader import NFCReader
+from app.nfc.NFCReader import NFCReader
 from app.core.access_controller import check_access
-from app.ble.ble_server import BLEServer
+from app.ble.BLEServer import BLEServer
 from app.services.enrollment_service import EnrollmentService
 from app.services.batch_service import create_logs_batch
 from app.services.log_batch_sync_service import (
