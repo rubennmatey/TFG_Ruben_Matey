@@ -11,3 +11,7 @@ def build_logs_batch_hash(log_rows):
 
     batch_payload = "||".join(serialized_logs)
     return hashlib.sha256(batch_payload.encode("utf-8")).hexdigest()
+
+# Generate a hash with UIDs
+def hash_uids(uids: list[str]) -> str:
+    return hashlib.sha256("||".join(uids).encode("utf-8")).hexdigest()

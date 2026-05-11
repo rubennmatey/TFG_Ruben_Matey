@@ -36,9 +36,31 @@ class EnrollmentService:
             return self.last_enrolled_uid
 
         alias = f"NFC_{uid}"
-        create_credential(uid, alias, role="user", active=1)
-        create_admin_action("ENROLL_UID", uid)
+
+        create_credential(
+            uid=uid,
+            alias=alias,
+            role="user",
+            active=1
+        )
+
+        create_admin_action(
+            action_type="ENROLL_UID",
+            target_uid=uid
+        )
+
+        try:
+            result = send_credential_event_to_blockchain(
+                uid=uid,
+                action_type="REGISTER",
+                role="user",
+                active=True
+            )
+            print(f"[CREDENTIAL_CHAIN] REGISTER sincronizado: {result}")
+        except Exception as e:
+            print(f"[CREDENTIAL_CHAIN] Error registrando credential REGISTER: {e}")
 
         self.enroll_mode = False
         self.last_enrolled_uid = f"ENROLLED:{uid}"
+
         return self.last_enrolled_uid
