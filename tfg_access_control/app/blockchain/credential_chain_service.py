@@ -10,7 +10,7 @@ def send_credential_event_to_blockchain(uid, action_type, role, active):
 
     web3, contract = get_contract()
 
-    uid_hash = hash_uid(uid)
+    uid_hash = hash_uids(uid)
     timestamp = datetime.utcnow().isoformat()
 
     account = Web3.to_checksum_address(BLOCKCHAIN_ACCOUNT)
