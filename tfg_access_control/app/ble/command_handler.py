@@ -1,11 +1,11 @@
 from app.db.access_logs_actions import get_last_access_log
 from app.db.credentials_actions import (
-    list_credentials,
+    list_credentials_as_rows,
     get_credential_summary,
     update_credential_status,
 )
 from app.db.admin_actions import create_admin_action
-from app.blockchain.credential_chain_service import send_credential_event_to_blockchain
+from app.blockchain.credential_chain_service import update_credential_status_on_blockchain
 from app.constants import (
     BLE_RESPONSE_PONG,
     BLE_RESPONSE_UNKNOWN_COMMAND,
@@ -96,15 +96,13 @@ def handle_command(command: str, enrollment_service=None) -> str:
         )
 
         try:
-            result = send_credential_event_to_blockchain(
+            result = update_credential_status_on_blockchain(
                 uid=uid,
-                action_type="DISABLE",
-                role=row["role"],
                 active=False
             )
-            print(f"[CREDENTIAL_CHAIN] DISABLE sincronizado: {result}")
+            print(f"[CREDENTIAL_CHAIN] Credencial desactivada en blockchain: {result}")
         except Exception as e:
-            print(f"[CREDENTIAL_CHAIN] Error registrando credential DISABLE: {e}")
+            print(f"[CREDENTIAL_CHAIN] Error desactivando credencial en blockchain: {e}")
 
         return f"UID_DISABLED:{uid}"
 
@@ -130,15 +128,13 @@ def handle_command(command: str, enrollment_service=None) -> str:
         )
 
         try:
-            result = send_credential_event_to_blockchain(
+            result = update_credential_status_on_blockchain(
                 uid=uid,
-                action_type="ENABLE",
-                role=row["role"],
                 active=True
             )
-            print(f"[CREDENTIAL_CHAIN] ENABLE sincronizado: {result}")
+            print(f"[CREDENTIAL_CHAIN] Credencial activada en blockchain: {result}")
         except Exception as e:
-            print(f"[CREDENTIAL_CHAIN] Error registrando credential ENABLE: {e}")
+            print(f"[CREDENTIAL_CHAIN] Error activando credencial en blockchain: {e}")
 
         return f"UID_ENABLED:{uid}"
 

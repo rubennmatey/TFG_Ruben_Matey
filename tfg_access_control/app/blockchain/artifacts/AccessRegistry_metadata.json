@@ -48,13 +48,13 @@
 					{
 						"indexed": false,
 						"internalType": "string",
-						"name": "uidHash",
+						"name": "uid",
 						"type": "string"
 					},
 					{
 						"indexed": false,
 						"internalType": "string",
-						"name": "actionType",
+						"name": "aliasName",
 						"type": "string"
 					},
 					{
@@ -76,7 +76,38 @@
 						"type": "string"
 					}
 				],
-				"name": "CredentialEventRegistered",
+				"name": "CredentialRegistered",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "uid",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "active",
+						"type": "bool"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "timestamp",
+						"type": "string"
+					}
+				],
+				"name": "CredentialStatusUpdated",
 				"type": "event"
 			},
 			{
@@ -103,6 +134,25 @@
 				],
 				"name": "LogBatchRegistered",
 				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "uid",
+						"type": "string"
+					}
+				],
+				"name": "credentialExists",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			},
 			{
 				"inputs": [
@@ -159,7 +209,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "getCredentialEvent",
+				"name": "getCredential",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -168,12 +218,12 @@
 					},
 					{
 						"internalType": "string",
-						"name": "uidHash",
+						"name": "uid",
 						"type": "string"
 					},
 					{
 						"internalType": "string",
-						"name": "actionType",
+						"name": "aliasName",
 						"type": "string"
 					},
 					{
@@ -197,7 +247,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "getCredentialEventsCount",
+				"name": "getCredentialsCount",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -277,12 +327,12 @@
 				"inputs": [
 					{
 						"internalType": "string",
-						"name": "uidHash",
+						"name": "uid",
 						"type": "string"
 					},
 					{
 						"internalType": "string",
-						"name": "actionType",
+						"name": "aliasName",
 						"type": "string"
 					},
 					{
@@ -301,7 +351,7 @@
 						"type": "string"
 					}
 				],
-				"name": "registerCredentialEvent",
+				"name": "registerCredential",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -320,6 +370,29 @@
 					}
 				],
 				"name": "registerLogBatch",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "uid",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "active",
+						"type": "bool"
+					},
+					{
+						"internalType": "string",
+						"name": "timestamp",
+						"type": "string"
+					}
+				],
+				"name": "updateCredentialStatus",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -353,11 +426,11 @@
 	},
 	"sources": {
 		"contracts/AccessRegistry.sol": {
-			"keccak256": "0xdb6a5a4df2a2dc37641e461bfae3d785a50e27920480dd68e3cf27a707167122",
+			"keccak256": "0x04e4beb00502f4989b83b7337dee2504b5f0c8efcf8d53e6f495a1f6a9078d92",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://68baaaeb9cdfb4152d8227a5e5910bb9973de3a16d81df403c75787ef6cd0a05",
-				"dweb:/ipfs/QmNQmmsvc2YJTfAcbeSL13b8hm8zodyWVfoVTTUvbxXMWG"
+				"bzz-raw://1734b9af45778c96dba6eb307dd902ef3576bca9b4ec1e62fcf2b58efe9eef91",
+				"dweb:/ipfs/QmbV9jZPKmAu41r8Y4PZDN1rKBciTRzQeWG6WWTvJthCAz"
 			]
 		}
 	},

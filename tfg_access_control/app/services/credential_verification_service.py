@@ -1,104 +1,74 @@
-from app.db.credentials_repository import list_credentials
-from app.blockchain.web3_client import get_contract
-from app.blockchain.hashing import hash_uid
-
-
-def get_all_credential_events_from_blockchain():
-    _, contract = get_contract()
-
-    count = contract.functions.getCredentialEventsCount().call()
-    events = []
-
-    for index in range(count):
-        event = contract.functions.getCredentialEvent(index).call()
-
-        events.append({
-            "id": event[0],
-            "uid_hash": event[1],
-            "action_type": event[2],
-            "role": event[3],
-            "active": event[4],
-            "timestamp": event[5],
-        })
-
-    return events
+from app.db.credentials_actions import list_credentials
+from app.blockchain.credential_chain_service import get_all_credentials_from_blockchain
 
 
 def verify_credentials_against_blockchain():
-    credentials = list_credentials()
-    blockchain_events = get_all_credential_events_from_blockchain()
+    local_credentials = list_credentials()
+    blockchain_credentials = get_all_credentials_from_blockchain()
 
     results = []
 
-    for credential in credentials:
-        uid = credential["uid"]
-        uid_hash = hash_uid(uid)
+    for local_credential in local_credentials:
+        uid = local_credential["uid"]
 
-        credential_events = [
-            event for event in blockchain_events
-            if event["uid_hash"] == uid_hash
+        matching_blockchain_credentials = [
+            credential for credential in blockchain_credentials
+            if credential["uid"] == uid
         ]
 
-        if not credential_events:
+        if not matching_blockchain_credentials:
             results.append({
                 "uid": uid,
                 "status": "INVALID",
-                "reason": "NO_BLOCKCHAIN_REGISTER_EVENT",
-                "local_role": credential["role"],
-                "local_active": bool(credential["active"]),
+                "reason": "CREDENTIAL_NOT_REGISTERED_ON_CHAIN",
+                "local_alias": local_credential["alias"],
+                "local_role": local_credential["role"],
+                "local_active": bool(local_credential["active"]),
+                "blockchain_alias": None,
                 "blockchain_role": None,
                 "blockchain_active": None,
             })
             continue
 
-        valid_register_events = [
-            event for event in credential_events
-            if event["action_type"] in ("INITIAL_REGISTER", "REGISTER")
-        ]
+        blockchain_credential = matching_blockchain_credentials[-1]
 
-        if not valid_register_events:
-            results.append({
-                "uid": uid,
-                "status": "INVALID",
-                "reason": "NO_VALID_REGISTER_EVENT",
-                "local_role": credential["role"],
-                "local_active": bool(credential["active"]),
-                "blockchain_role": None,
-                "blockchain_active": None,
-            })
-            continue
+        local_alias = local_credential["alias"]
+        local_role = local_credential["role"]
+        local_active = bool(local_credential["active"])
 
-        last_event = credential_events[-1]
+        blockchain_alias = blockchain_credential["alias"]
+        blockchain_role = blockchain_credential["role"]
+        blockchain_active = bool(blockchain_credential["active"])
 
-        local_role = credential["role"]
-        local_active = bool(credential["active"])
-
-        blockchain_role = last_event["role"]
-        blockchain_active = bool(last_event["active"])
-
-        if local_role != blockchain_role or local_active != blockchain_active:
+        if (
+            local_alias != blockchain_alias
+            or local_role != blockchain_role
+            or local_active != blockchain_active
+        ):
             results.append({
                 "uid": uid,
                 "status": "INVALID",
                 "reason": "LOCAL_STATE_DOES_NOT_MATCH_BLOCKCHAIN",
+                "local_alias": local_alias,
                 "local_role": local_role,
                 "local_active": local_active,
+                "blockchain_alias": blockchain_alias,
                 "blockchain_role": blockchain_role,
                 "blockchain_active": blockchain_active,
-                "last_blockchain_action": last_event["action_type"],
-                "last_blockchain_timestamp": last_event["timestamp"],
+                "blockchain_timestamp": blockchain_credential["timestamp"],
             })
         else:
             results.append({
                 "uid": uid,
                 "status": "VALID",
                 "reason": "LOCAL_STATE_MATCHES_BLOCKCHAIN",
+                "local_alias": local_alias,
                 "local_role": local_role,
                 "local_active": local_active,
+                "blockchain_alias": blockchain_alias,
                 "blockchain_role": blockchain_role,
                 "blockchain_active": blockchain_active,
-                "last_blockchain_action": last_event["action_type"],
-                "last_blockchain_timestamp": last_event["timestamp"],
+                "blockchain_timestamp": blockchain_credential["timestamp"],
             })
 
     return results
