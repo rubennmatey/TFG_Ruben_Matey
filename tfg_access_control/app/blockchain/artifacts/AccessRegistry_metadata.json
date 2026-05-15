@@ -338,9 +338,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"AccessRegistry.sol": "AccessRegistry"
+			"contracts/AccessRegistry.sol": "AccessRegistry"
 		},
-		"evmVersion": "prague",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -352,7 +352,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"AccessRegistry.sol": {
+		"contracts/AccessRegistry.sol": {
 			"keccak256": "0xdb6a5a4df2a2dc37641e461bfae3d785a50e27920480dd68e3cf27a707167122",
 			"license": "MIT",
 			"urls": [
