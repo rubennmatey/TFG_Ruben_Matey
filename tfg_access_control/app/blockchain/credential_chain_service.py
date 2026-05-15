@@ -3,7 +3,7 @@ from web3 import Web3
 
 from app.config import BLOCKCHAIN_ACCOUNT, BLOCKCHAIN_PRIVATE_KEY, CHAIN_ID
 from app.blockchain.web3_client import get_contract
-from app.blockchain.hashing import hash_uid
+from app.blockchain.hashing import hash_uids
 
 # Transactions to the blockchain with the credential events
 def send_credential_event_to_blockchain(uid, action_type, role, active):

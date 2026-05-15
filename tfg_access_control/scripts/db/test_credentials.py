@@ -5,7 +5,7 @@ import sqlite3
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from app.db.credentials_repository import create_credential, list_credentials
+from app.db.credentials_actions import create_credential, list_credentials
 from app.blockchain.credential_chain_service import send_credential_event_to_blockchain
 
 
