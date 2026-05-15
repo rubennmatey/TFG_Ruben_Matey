@@ -1,10 +1,10 @@
-from app.db.access_logs_repository import get_last_access_log
-from app.db.credentials_repository import (
-    list_credentials_as_rows,
+from app.db.access_logs_actions import get_last_access_log
+from app.db.credentials_actions import (
+    list_credentials,
     get_credential_summary,
     update_credential_status,
 )
-from app.db.admin_actions_repository import create_admin_action
+from app.db.admin_actions import create_admin_action
 from app.blockchain.credential_chain_service import send_credential_event_to_blockchain
 from app.constants import (
     BLE_RESPONSE_PONG,
