@@ -18,16 +18,19 @@ from app.config import SYNC_BACKUP_INTERVAL_SECONDS, LOG_BATCH_SIZE
 
 
 class AccessControlSystem:
+    # Initializes the access control system components (NFC, BLE, enrollment)
     def __init__(self):
         self.reader = NFCReader()
         self.enrollment_service = EnrollmentService()
         self.ble = BLEServer(enrollment_service=self.enrollment_service)
         self.running = True
 
+    # Starts the BLE server in a background daemon thread
     def start_ble(self):
         ble_thread = threading.Thread(target=self.ble.start, daemon=True)
         ble_thread.start()
 
+    # Starts the periodic backup sync loop in a background daemon thread
     def start_periodic_backup_sync(self):
         backup_thread = threading.Thread(target=self._periodic_backup_sync_loop, daemon=True)
         backup_thread.start()

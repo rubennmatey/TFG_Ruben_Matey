@@ -6,6 +6,7 @@ from app.db.log_batches import create_log_batch
 from app.blockchain.hashing import build_logs_batch_hash
 
 
+# Groups unbatched access logs into a new batch and marks them as batched
 def create_logs_batch(batch_size=3):
     logs = list_unbatched_access_logs(limit=batch_size)
 

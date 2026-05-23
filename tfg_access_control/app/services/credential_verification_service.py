@@ -2,6 +2,7 @@ from app.db.credentials_actions import list_credentials
 from app.blockchain.credential_chain_service import get_all_credentials_from_blockchain
 
 
+# Compares local credentials against blockchain records and reports mismatches
 def verify_credentials_against_blockchain():
     local_credentials = list_credentials()
     blockchain_credentials = get_all_credentials_from_blockchain()

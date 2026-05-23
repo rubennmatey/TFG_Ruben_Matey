@@ -17,6 +17,7 @@ from app.constants import (
 )
 
 
+# Extracts the UID from a colon-separated command string
 def _extract_uid(command: str):
     parts = command.split(":", 1)
 
@@ -31,6 +32,7 @@ def _extract_uid(command: str):
     return uid
 
 
+# Parses and dispatches a BLE command, returning the appropriate response string
 def handle_command(command: str, enrollment_service=None) -> str:
     command = command.strip()
 

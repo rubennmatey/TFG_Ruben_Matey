@@ -4,6 +4,7 @@ from app.blockchain.hashing import build_logs_batch_hash
 from app.blockchain.log_batch_query_service import get_log_batch_from_blockchain
 
 
+# Verifies a log batch integrity by comparing local and blockchain hashes
 def verify_log_batch_integrity(batch_id):
     local_batch = get_log_batch_by_id(batch_id)
     if local_batch is None:

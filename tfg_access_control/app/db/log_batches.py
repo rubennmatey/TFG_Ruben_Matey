@@ -63,6 +63,7 @@ def mark_log_batch_as_synced(batch_id, tx_hash):
         conn.close()
 
 
+# Returns a log batch record by its local database ID
 def get_log_batch_by_id(batch_id):
     conn = get_connection()
     try:

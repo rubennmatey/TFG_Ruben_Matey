@@ -45,6 +45,7 @@ def list_pending_admin_actions():
         conn.close()
 
 
+# Marks an admin action as synced to the blockchain and stores its tx hash
 def mark_admin_action_as_synced(action_id, tx_hash):
     conn = get_connection()
     try:

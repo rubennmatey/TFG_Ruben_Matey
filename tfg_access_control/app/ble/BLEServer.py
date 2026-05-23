@@ -10,6 +10,7 @@ RESPONSE_UUID = "12345678-1234-5678-1234-56789abcdef3"
 
 
 class BLEServer:
+    # Sets up the BLE peripheral with its service and characteristics
     def __init__(self, enrollment_service=None):
         self.current_event = "INIT"
         self.current_response = "NO_RESPONSE"
@@ -56,13 +57,16 @@ class BLEServer:
             read_callback=self.read_response
         )
 
+    # Returns the last event value as a UTF-8 byte list
     def read_last_event(self):
         return list(self.current_event.encode("utf-8"))
 
+    # Updates the current event value broadcast via BLE
     def update_value(self, new_value: str):
         self.current_event = new_value
         print(f"[BLE] LAST_EVENT actualizado a: {self.current_event}")
 
+    # Receives a BLE command, processes it and stores the response
     def write_command(self, value, options):
         try:
             command = bytes(value).decode("utf-8").strip()
@@ -73,9 +77,11 @@ class BLEServer:
         self.current_response = handle_command(command, self.enrollment_service)
         print(f"[BLE] Respuesta generada: {self.current_response}")
 
+    # Returns the last command response as a UTF-8 byte list
     def read_response(self):
         return list(self.current_response.encode("utf-8"))
 
+    # Starts the BLE peripheral and begins advertising
     def start(self):
         print("BLE iniciado")
         self.peripheral.publish()

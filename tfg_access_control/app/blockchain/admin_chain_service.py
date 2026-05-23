@@ -3,6 +3,7 @@ from app.config import BLOCKCHAIN_ACCOUNT, BLOCKCHAIN_PRIVATE_KEY, CHAIN_ID
 from app.blockchain.web3_client import get_contract
 
 
+# Signs and sends an admin action transaction to the blockchain
 def send_admin_action_to_blockchain(action_type, target_uid, timestamp):
     web3, contract = get_contract()
 

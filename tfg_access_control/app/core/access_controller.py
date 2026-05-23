@@ -2,6 +2,7 @@ from app.constants import (ACCESS_GRANTED, ACCESS_DENIED, REASON_AUTHORIZED, REA
 from app.db.credentials_actions import get_credential_by_uid
 from app.db.access_logs_actions import create_access_log
 
+# Checks if a UID has access permission and logs the result
 def check_access(uid):
     credential = get_credential_by_uid(uid)
 

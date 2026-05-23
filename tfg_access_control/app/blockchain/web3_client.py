@@ -3,11 +3,13 @@ from web3 import Web3
 from app.config import BLOCKCHAIN_RPC_URL, CONTRACT_ADDRESS
 
 
+# Returns a Web3 instance connected to the blockchain RPC node
 def get_web3():
     web3 = Web3(Web3.HTTPProvider(BLOCKCHAIN_RPC_URL))
     return web3
 
 
+# Loads the contract ABI and returns a Web3 instance along with the contract object
 def get_contract():
     web3 = get_web3()
 

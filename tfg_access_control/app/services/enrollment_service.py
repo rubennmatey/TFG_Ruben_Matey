@@ -9,24 +9,30 @@ from app.constants import (
 
 
 class EnrollmentService:
+    # Initializes the enrollment service with enroll mode disabled
     def __init__(self):
         self.enroll_mode = False
         self.last_enrolled_uid = BLE_RESPONSE_NONE
 
+    # Activates enrollment mode so the next NFC scan registers a new credential
     def start_enroll(self):
         self.enroll_mode = True
         return BLE_RESPONSE_ENROLL_MODE_ON
 
+    # Deactivates enrollment mode
     def stop_enroll(self):
         self.enroll_mode = False
         return BLE_RESPONSE_ENROLL_MODE_OFF
 
+    # Returns the UID result of the last enrollment attempt
     def get_last_enroll(self):
         return self.last_enrolled_uid
 
+    # Returns whether enrollment mode is currently active
     def is_enroll_mode_active(self):
         return self.enroll_mode
 
+    # Handles a scanned NFC UID during enrollment mode and registers it if new
     def handle_nfc_for_enrollment(self, uid):
         if not self.enroll_mode:
             return None

@@ -3,6 +3,7 @@ from app.config import BLOCKCHAIN_ACCOUNT, BLOCKCHAIN_PRIVATE_KEY, CHAIN_ID
 from app.blockchain.web3_client import get_contract
 
 
+# Signs and sends a log batch hash transaction to the blockchain
 def send_log_batch_to_blockchain(batch_hash, timestamp):
     web3, contract = get_contract()
 

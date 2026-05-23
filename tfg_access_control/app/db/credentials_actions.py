@@ -32,6 +32,7 @@ def list_credentials():
     finally:
         conn.close()
 
+# Returns a simplified list of credentials with uid, alias and active status
 def list_credentials_as_rows():
     conn = get_connection()
     try:
