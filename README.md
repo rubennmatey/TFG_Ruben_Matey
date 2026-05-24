@@ -20,6 +20,7 @@ This project implements a complete access control system where:
 
   * recording administrative actions
   * ensuring integrity of access logs through hash anchoring
+  * storing credentials
 
 The system follows a hybrid architecture where critical operations run locally, while blockchain provides **auditability and integrity guarantees**.
 
@@ -48,6 +49,7 @@ The system follows a hybrid architecture where critical operations run locally, 
         🔗 Blockchain (Ethereum)
         - Admin actions
         - Log batch hashes
+        - Credentials
 ```
 
 ---
@@ -88,6 +90,12 @@ The system follows a hybrid architecture where critical operations run locally, 
 * SHA-256 hash computation
 * Hash anchoring on blockchain
 * Integrity verification
+
+### 3. Credentials
+
+* Credentials stored on blockchain
+* Credential verification
+* Modified credentials 
 
 ---
 
@@ -324,4 +332,4 @@ Resulting in a system that is:
 # 👤 Author
 
 Rubén Matey
-Final Degree Project - Computer Engineering
+Bachelor's Thesis - Computer Engineering
